@@ -465,6 +465,8 @@
     footer .big { animation: beat 1.8s ease-in-out infinite }
     @keyframes beat { 0%, 100% { transform: scale(1) } 15% { transform: scale(1.06) } 30% { transform: scale(1) } 45% { transform: scale(1.04) } }
 
+    .player span { white-space: nowrap }
+
     #confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50 }
 
     @media (prefers-reduced-motion: reduce) {
@@ -550,8 +552,8 @@
 
     const FAMILLE = [
       {
-        nom: "Maman", role: "Ta femme", couleur: "var(--red)", audio: "audio/maman.mp3",
-        texte: "Appuie sur lecture pour écouter mon message."
+        nom: "Maman", role: "Ta femme", couleur: "var(--red)", audio: "",
+        texte: "Mon chéri, joyeux anniversaire. Merci pour toutes ces années à mes côtés, pour ta force et ta tendresse. Que Dieu te garde en bonne santé et te donne encore de longues années de bonheur avec nous."
       },
       {
         nom: "Imelda", role: "Ta fille", couleur: "var(--leaf)", audio: "",
@@ -602,7 +604,7 @@
     });
 
     const photos = $("#photos");
-    PHOTOS.filter(p => p.src).forEach(p => {
+    PHOTOS.forEach(p => {
       const f = el("figure", p.large ? "polaroid wide" : "polaroid");
       if (p.src) { const i = new Image(); i.src = p.src; i.alt = p.legende; i.loading = "lazy"; f.append(i); }
       else f.append(el("div", "ph", "Photo à ajouter"));
