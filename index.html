@@ -465,19 +465,151 @@
     footer .big { animation: beat 1.8s ease-in-out infinite }
     @keyframes beat { 0%, 100% { transform: scale(1) } 15% { transform: scale(1.06) } 30% { transform: scale(1) } 45% { transform: scale(1.04) } }
 
-    .player span { white-space: nowrap }
-
     #confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50 }
 
     @media (prefers-reduced-motion: reduce) {
       .js-reveal .reveal { opacity: 1; translate: none; transition: none }
       .polaroid { transition: none }
     }
-</style>
+
+    .player span { white-space: nowrap }
+
+    /* ====== Enveloppe d'ouverture ====== */
+    #intro { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 24px;
+      background: radial-gradient(circle at 50% 38%, #2f3d86, #121735 72%); transition: opacity .9s ease, visibility .9s }
+    #intro.gone { opacity: 0; visibility: hidden }
+    .env-wrap { display: grid; justify-items: center; gap: 26px; text-align: center; color: #f3efe6 }
+    .env-to { font-family: var(--hand); font-size: 2.4rem; line-height: 1 }
+    .env-from { font-size: .85rem; letter-spacing: .14em; text-transform: uppercase; opacity: .75 }
+    .env { position: relative; width: min(80vw, 340px); aspect-ratio: 3 / 2; border: 0; padding: 0; background: none; cursor: pointer;
+      perspective: 1000px; animation: bob 3s ease-in-out infinite }
+    .env:focus-visible { outline: 3px solid var(--gold); outline-offset: 8px; border-radius: 8px }
+    @keyframes bob { 50% { transform: translateY(-8px) rotate(-1deg) } }
+    .env > * { position: absolute; left: 0; right: 0 }
+    .env-back { inset: 0; background: #cdbb97; border-radius: 6px; box-shadow: 0 24px 60px rgba(0, 0, 0, .5) }
+    .env-card { left: 7%; right: 7%; top: 8%; bottom: 6%; background: #fffdf8; border-radius: 4px; display: grid; place-items: center;
+      font-family: var(--display); color: #23306b; font-size: 1.25rem; transition: transform .8s cubic-bezier(.2, .8, .2, 1) .55s; z-index: 2 }
+    .env-card small { display: block; font-family: var(--hand); color: #d9951a; font-size: 1.5rem }
+    .env-front { inset: 0; background: #e9dcc3; border-radius: 6px; z-index: 3;
+      clip-path: polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%) }
+    .env-flap { top: 0; height: 62%; background: #ddcca9; z-index: 4; transform-origin: 50% 0;
+      clip-path: polygon(0 0, 100% 0, 50% 100%); transition: transform .6s ease, z-index 0s .3s; border-radius: 6px 6px 0 0 }
+    .env-seal { left: 50%; right: auto; top: 50%; width: 54px; height: 54px; margin: -27px 0 0 -27px; border-radius: 50%; z-index: 5;
+      background: radial-gradient(circle at 35% 30%, #f0c25a, #b8740e); display: grid; place-items: center; color: #fffdf8;
+      font-family: var(--display); font-size: 1.4rem; box-shadow: 0 3px 8px rgba(0, 0, 0, .35); transition: transform .4s ease, opacity .4s ease }
+    .env-hint { font-size: .95rem; opacity: .85; animation: blink 1.6s ease-in-out infinite }
+    @keyframes blink { 50% { opacity: .35 } }
+    #intro.open .env { animation: none }
+    #intro.open .env-seal { transform: scale(0) rotate(90deg); opacity: 0 }
+    #intro.open .env-flap { transform: rotateX(180deg); z-index: 1 }
+    #intro.open .env-card { transform: translateY(-62%) }
+    #intro.open .env-hint { visibility: hidden }
+
+    /* ====== Ballons ====== */
+    .balloons { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0 }
+    .env-wrap { position: relative; z-index: 1 }
+    .balloon { position: absolute; bottom: -90px; width: 36px; height: 46px; border-radius: 50% 50% 47% 47%; opacity: .85;
+      background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, .7) 0 7%, transparent 20%), var(--c);
+      animation: float var(--d) linear var(--w) infinite }
+    .balloon::after { content: ""; position: absolute; left: 50%; top: 100%; width: 1px; height: 56px; background: rgba(243, 239, 230, .5) }
+    @keyframes float { 0% { transform: translate(0, 0) rotate(-5deg) } 50% { transform: translate(16px, -60vh) rotate(5deg) } 100% { transform: translate(-8px, -125vh) rotate(-4deg) } }
+
+    /* ====== Lettre ligne par ligne ====== */
+    .js-reveal .letter p, .js-reveal .letter .sign { opacity: 0; translate: 0 12px; transition: opacity .7s ease, translate .7s ease }
+    .js-reveal .letter.in p, .js-reveal .letter.in .sign { opacity: 1; translate: 0 0 }
+    .letter { position: relative; overflow: hidden }
+    .letter::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+      background: linear-gradient(90deg, var(--leaf) 0 33%, var(--gold) 33% 66%, var(--red) 66%) }
+
+    /* ====== Lecteur de vocal ====== */
+    .vplayer { display: flex; align-items: center; gap: 12px; background: var(--bg); border-radius: 999px; padding: 6px 16px 6px 6px; min-width: 0 }
+    .vplay { width: 46px; height: 46px; border-radius: 50%; border: 0; background: var(--c); color: #fff; display: grid; place-items: center; cursor: pointer; flex: none;
+      transition: transform .15s ease }
+    .vplay:active { transform: scale(.92) }
+    .vplay:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px }
+    .vplay svg { width: 18px; height: 18px }
+    .wave { flex: 1; display: flex; align-items: center; gap: 2px; height: 34px; min-width: 0; cursor: pointer }
+    .wave i { flex: 1; min-width: 2px; border-radius: 2px; background: var(--line); transition: background .2s }
+    .wave i.on { background: var(--c) }
+    .vplayer.playing .wave i.on:nth-child(3n) { animation: wv .6s ease-in-out infinite alternate }
+    @keyframes wv { to { transform: scaleY(.6) } }
+    .vtime { font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; flex: none }
+    .card.has-voice { border-color: var(--c) }
+
+    /* ====== Visionneuse de photos ====== */
+    .polaroid img { cursor: zoom-in }
+    #lb { position: fixed; inset: 0; z-index: 90; background: rgba(10, 12, 30, .94); display: grid; place-items: center; padding: 56px 16px }
+    #lb figure { margin: 0; display: grid; gap: 12px; justify-items: center; min-width: 0 }
+    #lb img { max-height: 74vh; max-width: 100%; width: auto; border: 8px solid #fff; border-bottom-width: 8px; box-shadow: 0 20px 60px rgba(0, 0, 0, .6); animation: zin .35s ease }
+    @keyframes zin { from { transform: scale(.9); opacity: 0 } }
+    #lb figcaption { font-family: var(--hand); font-size: 1.7rem; color: #fff; text-align: center }
+    .lb-btn { position: absolute; border: 0; background: rgba(255, 255, 255, .14); color: #fff; width: 46px; height: 46px; border-radius: 50%;
+      font-size: 1.5rem; cursor: pointer; display: grid; place-items: center }
+    .lb-btn:focus-visible { outline: 3px solid var(--gold) }
+    .lb-close { top: calc(12px + env(safe-area-inset-top, 0px)); right: 12px }
+    .lb-prev { left: 10px; top: 50% } .lb-next { right: 10px; top: 50% }
+
+    /* ====== Gâteau ====== */
+    .cake-box { display: grid; justify-items: center; gap: 14px; text-align: center; background: var(--paper); border: 1px solid var(--line);
+      border-radius: 6px; padding: 26px 18px 30px }
+    .cake-box p { margin: 0; color: var(--muted) }
+    .cake { position: relative; width: 230px; height: 200px; margin-top: 10px }
+    .plate { position: absolute; bottom: 0; left: -15px; right: -15px; height: 14px; border-radius: 50%; background: var(--line) }
+    .tier { position: absolute; left: 50%; transform: translateX(-50%); border-radius: 12px 12px 6px 6px }
+    .t1 { bottom: 7px; width: 220px; height: 74px; background: #23306b }
+    .t2 { bottom: 81px; width: 160px; height: 58px; background: #d9951a }
+    .tier::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 18px; border-radius: 12px 12px 0 0;
+      background: radial-gradient(circle at 10px 8px, #fffdf8 9px, transparent 10px) 0 0 / 20px 18px repeat-x, linear-gradient(#fffdf8 0 8px, transparent 8px) }
+    .t1::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 18px; height: 8px;
+      background: radial-gradient(circle, #f2c200 3px, transparent 4px) 0 0 / 22px 8px repeat-x }
+    .candles { position: absolute; bottom: 139px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px }
+    .candle { position: relative; width: 26px; height: 56px; border: 0; padding: 0; background: none; cursor: pointer }
+    .candle:focus-visible { outline: 3px solid var(--gold); border-radius: 6px }
+    .candle .stick { position: absolute; bottom: 0; left: 8px; width: 10px; height: 40px; border-radius: 3px;
+      background: repeating-linear-gradient(135deg, #fffdf8 0 5px, var(--c) 5px 10px) }
+    .flame { position: absolute; left: 50%; bottom: 40px; width: 14px; height: 22px; margin-left: -7px; border-radius: 50% 50% 45% 45% / 62% 62% 38% 38%;
+      background: radial-gradient(circle at 50% 72%, #fff 0 14%, #ffd34d 34%, #ff8a00 68%, transparent 71%);
+      transform-origin: 50% 90%; animation: flick .14s ease-in-out infinite alternate; filter: drop-shadow(0 0 6px #ffb020); transition: transform .3s ease, opacity .3s ease }
+    @keyframes flick { to { transform: scale(1.07, .93) rotate(3deg) } }
+    .candle.out .flame { animation: none; transform: scale(.1); opacity: 0 }
+    .candle .smoke { position: absolute; left: 50%; bottom: 44px; width: 8px; height: 8px; margin-left: -4px; border-radius: 50%; background: #9aa0b8; opacity: 0 }
+    .candle.out .smoke { animation: smoke 1.2s ease-out forwards }
+    @keyframes smoke { 0% { opacity: .7; transform: translateY(0) scale(1) } 100% { opacity: 0; transform: translateY(-40px) scale(3) } }
+    .wish { font-family: var(--display); font-size: 1.6rem; color: var(--ink) !important; animation: zin .5s ease }
+    .relight { border: 0; background: none; color: var(--indigo); font: 600 .95rem var(--body); text-decoration: underline; cursor: pointer }
+
+    @media (prefers-reduced-motion: reduce) {
+      .balloons { display: none }
+      .js-reveal .letter p, .js-reveal .letter .sign { opacity: 1; translate: none }
+    }
+  </style>
 </head>
 
 <body>
 
+
+  <div id="intro" hidden>
+    <div class="balloons" aria-hidden="true">
+      <i class="balloon" style="left:6%;--c:#2d7a4e;--d:13s;--w:0s"></i>
+      <i class="balloon" style="left:22%;--c:#f2c200;--d:16s;--w:-7s"></i>
+      <i class="balloon" style="left:40%;--c:#d6342a;--d:14s;--w:-3s"></i>
+      <i class="balloon" style="left:58%;--c:#d9951a;--d:17s;--w:-10s"></i>
+      <i class="balloon" style="left:74%;--c:#2d7a4e;--d:15s;--w:-5s"></i>
+      <i class="balloon" style="left:88%;--c:#d6342a;--d:18s;--w:-12s"></i>
+    </div>
+    <div class="env-wrap">
+      <span class="env-from">Une surprise de ta famille</span>
+      <span class="env-to">Pour Papa</span>
+      <button class="env" id="envBtn" type="button" aria-label="Ouvrir l'enveloppe">
+        <span class="env-back"></span>
+        <span class="env-card"><span>Joyeux anniversaire<small>avec tout notre amour</small></span></span>
+        <span class="env-front"></span>
+        <span class="env-flap"></span>
+        <span class="env-seal">♥</span>
+      </button>
+      <span class="env-hint">Touche l'enveloppe pour l'ouvrir</span>
+    </div>
+  </div>
 
   <div class="wax" aria-hidden="true"></div>
   <div class="wrap">
@@ -485,8 +617,8 @@
       <span class="eyebrow">De la France au Bénin, avec tout notre amour</span>
       <h1>Joyeux anniversaire, <em>Papa</em></h1>
       <span class="date" id="date"></span>
-      <p class="lead">Ta femme et tes enfants ont réuni ici quelques mots pour toi. Appuie sur le bouton pour
-        lancer la musique, puis descends tranquillement.</p>
+      <p class="lead">Ta femme et tes enfants ont réuni ici quelques mots pour toi. Descends tranquillement, et prends ton
+        temps.</p>
       <button class="btn pulse" id="start" type="button">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M8 5v14l11-7z" />
@@ -521,6 +653,20 @@
       </div>
     </section>
 
+    <section aria-labelledby="t-cake">
+      <h2 id="t-cake">Souffle tes bougies</h2>
+      <div class="cake-box">
+        <p id="cakeTxt">Touche chaque flamme pour l'éteindre, puis fais un vœu.</p>
+        <div class="cake" id="cake">
+          <div class="candles" id="candles"></div>
+          <div class="tier t2"></div>
+          <div class="tier t1"></div>
+          <div class="plate"></div>
+        </div>
+        <button class="relight" id="relight" type="button" hidden>Rallumer les bougies</button>
+      </div>
+    </section>
+
     <footer>
       <span class="big">Bonne fête, Papa</span>
       Ta famille, qui pense fort à toi aujourd'hui.
@@ -528,6 +674,12 @@
   </div>
 
   <canvas id="confetti" aria-hidden="true"></canvas>
+  <div id="lb" hidden role="dialog" aria-modal="true" aria-label="Photo en grand">
+    <button class="lb-btn lb-close" id="lbClose" type="button" aria-label="Fermer">✕</button>
+    <button class="lb-btn lb-prev" id="lbPrev" type="button" aria-label="Photo précédente">‹</button>
+    <figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+    <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="Photo suivante">›</button>
+  </div>
   <div class="player" id="player" role="group" aria-label="Musique de fond">
     <div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
     <span id="ptxt">Musique en pause</span>
@@ -552,12 +704,12 @@
 
     const FAMILLE = [
       {
-        nom: "Maman", role: "Ta femme", couleur: "var(--red)", audio: "",
-        texte: "Mon chéri, joyeux anniversaire. Merci pour toutes ces années à mes côtés, pour ta force et ta tendresse. Que Dieu te garde en bonne santé et te donne encore de longues années de bonheur avec nous."
+        nom: "Maman", role: "Ta femme", couleur: "var(--red)", audio: "audio/maman.mp3",
+        texte: "Appuie sur lecture pour écouter mon message."
       },
       {
-        nom: "Imelda", role: "Ta fille", couleur: "var(--leaf)", audio: "",
-        texte: "Joyeux anniversaire Papa ! Tu es mon modèle et ma fierté. Merci pour tes conseils, ta patience et ton amour. Je te souhaite une magnifique journée."
+        nom: "Imelda", role: "Ta fille", couleur: "var(--leaf)", audio: "audio/imelda.mp3",
+        texte: "Appuie sur lecture pour écouter mon message."
       },
       {
         nom: "Hilary", role: "Ta fille", couleur: "var(--gold)", audio: "",
@@ -584,6 +736,40 @@
     LETTRE.forEach(p => letter.append(el("p", null, p)));
     letter.append(el("div", "sign", SIGNATURE));
 
+
+    /* ====== Lecteur de vocal ====== */
+    const ICO_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+    const ICO_PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
+    const players = [];
+    function voicePlayer(src) {
+      const box = el("div", "vplayer"), btn = el("button", "vplay"), wave = el("div", "wave"), time = el("span", "vtime", "0:00");
+      btn.type = "button"; btn.innerHTML = ICO_PLAY; btn.setAttribute("aria-label", "Écouter le vocal");
+      const N = 32, bars = [];
+      let seed = [...src].reduce((a, ch) => a + ch.charCodeAt(0), 7);
+      for (let k = 0; k < N; k++) {
+        seed = (seed * 9301 + 49297) % 233280;
+        const h = 25 + (seed / 233280) * 75 * Math.sin(Math.PI * (k + 1) / (N + 1));
+        const b = el("i"); b.style.height = Math.max(18, h) + "%"; bars.push(b); wave.append(b);
+      }
+      const a = new Audio(); a.preload = "metadata"; a.src = src;
+      const fmt = t => Math.floor(t / 60) + ":" + String(Math.floor(t % 60)).padStart(2, "0");
+      a.addEventListener("loadedmetadata", () => { time.textContent = fmt(a.duration); });
+      a.addEventListener("timeupdate", () => {
+        const r = a.duration ? a.currentTime / a.duration : 0;
+        bars.forEach((b, k) => b.classList.toggle("on", k / N < r));
+        time.textContent = fmt(a.currentTime);
+      });
+      const setUi = on => { box.classList.toggle("playing", on); btn.innerHTML = on ? ICO_PAUSE : ICO_PLAY; btn.setAttribute("aria-label", on ? "Mettre en pause" : "Écouter le vocal"); };
+      a.addEventListener("play", () => { players.forEach(o => o !== a && o.pause()); setUi(true); music.duck(true); });
+      a.addEventListener("pause", () => { setUi(false); music.duck(false); });
+      a.addEventListener("ended", () => { setUi(false); music.duck(false); bars.forEach(b => b.classList.remove("on")); time.textContent = fmt(a.duration); });
+      btn.addEventListener("click", () => { a.paused ? a.play() : a.pause(); });
+      wave.addEventListener("click", e => { const r = wave.getBoundingClientRect(); if (a.duration) { a.currentTime = (e.clientX - r.left) / r.width * a.duration; if (a.paused) a.play(); } });
+      players.push(a);
+      box.append(btn, wave, time);
+      return box;
+    }
+
     const cards = $("#cards");
     FAMILLE.forEach(m => {
       const c = el("article", "card");
@@ -591,20 +777,13 @@
       const av = el("div", "avatar", m.nom.trim()[0]); av.style.background = m.couleur;
       const id = el("div"); id.append(el("b", null, m.nom), el("span", null, m.role));
       who.append(av, id); c.append(who);
-      if (m.audio) {
-        c.append(el("span", "voice-tag", "NOTE VOCALE"));
-        const a = document.createElement("audio"); a.controls = true; a.preload = "none"; a.src = m.audio;
-        a.addEventListener("play", () => music.duck(true));
-        a.addEventListener("pause", () => music.duck(false));
-        a.addEventListener("ended", () => music.duck(false));
-        c.append(a);
-      }
+      if (m.audio) { c.classList.add("has-voice"); c.style.setProperty("--c", m.couleur); c.append(voicePlayer(m.audio)); }
       if (m.texte) c.append(el("p", null, m.texte));
       cards.append(c);
     });
 
     const photos = $("#photos");
-    PHOTOS.forEach(p => {
+    PHOTOS.filter(p => p.src).forEach(p => {
       const f = el("figure", p.large ? "polaroid wide" : "polaroid");
       if (p.src) { const i = new Image(); i.src = p.src; i.alt = p.legende; i.loading = "lazy"; f.append(i); }
       else f.append(el("div", "ph", "Photo à ajouter"));
@@ -734,6 +913,69 @@
         if (es[0].isIntersecting && !done) { done = true; confetti(innerWidth / 2, innerHeight * .6, 180); }
       }, { threshold: 0.6 }).observe(document.querySelector("footer"));
     }
+
+    /* ====== Visionneuse de photos ====== */
+    (() => {
+      const shown = PHOTOS.filter(p => p.src), lb = $("#lb"), img = $("#lbImg"), cap = $("#lbCap");
+      let k = 0, x0 = null;
+      const show = j => { k = (j + shown.length) % shown.length; img.src = shown[k].src; img.alt = shown[k].legende; cap.textContent = shown[k].legende;
+        img.style.animation = "none"; img.offsetHeight; img.style.animation = ""; };
+      document.querySelectorAll(".polaroid img").forEach((im, j) => im.addEventListener("click", () => { show(j); lb.hidden = false; $("#lbClose").focus(); }));
+      const close = () => { lb.hidden = true; };
+      $("#lbClose").addEventListener("click", close);
+      $("#lbPrev").addEventListener("click", () => show(k - 1));
+      $("#lbNext").addEventListener("click", () => show(k + 1));
+      lb.addEventListener("click", e => { if (e.target === lb) close(); });
+      document.addEventListener("keydown", e => { if (lb.hidden) return; if (e.key === "Escape") close(); if (e.key === "ArrowLeft") show(k - 1); if (e.key === "ArrowRight") show(k + 1); });
+      lb.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; }, { passive: true });
+      lb.addEventListener("touchend", e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 50) show(k + (dx < 0 ? 1 : -1)); x0 = null; });
+    })();
+
+    /* ====== Gâteau et bougies ====== */
+    (() => {
+      const COLS = ["#2d7a4e", "#f2c200", "#d6342a", "#2d7a4e", "#f2c200"];
+      const box = $("#candles"), txt = $("#cakeTxt"), relight = $("#relight");
+      const TXT0 = txt.textContent;
+      function build() {
+        box.innerHTML = "";
+        COLS.forEach((c, j) => {
+          const b = el("button", "candle"); b.type = "button"; b.style.setProperty("--c", c);
+          b.setAttribute("aria-label", "Éteindre la bougie " + (j + 1));
+          b.append(el("span", "smoke"), el("span", "stick"), el("span", "flame"));
+          b.addEventListener("click", () => {
+            if (b.classList.contains("out")) return;
+            b.classList.add("out"); b.setAttribute("aria-label", "Bougie éteinte");
+            if (!box.querySelector(".candle:not(.out)")) {
+              const r = box.getBoundingClientRect();
+              setTimeout(() => confetti(r.left + r.width / 2, r.top, 200), 300);
+              txt.textContent = "Fais un vœu, Papa ! Que tous tes souhaits se réalisent.";
+              txt.className = "wish"; relight.hidden = false;
+            }
+          });
+          box.append(b);
+        });
+      }
+      relight.addEventListener("click", () => { txt.textContent = TXT0; txt.className = ""; relight.hidden = true; build(); });
+      build();
+    })();
+
+    /* ====== Enveloppe d'ouverture ====== */
+    (() => {
+      const intro = $("#intro");
+      intro.hidden = false;
+      document.body.style.overflow = "hidden";
+      let opened = false;
+      $("#envBtn").addEventListener("click", () => {
+        if (opened) return; opened = true;
+        if (!music.on) { music.start(); render(); }
+        $("#start").hidden = true;
+        intro.classList.add("open");
+        setTimeout(() => confetti(innerWidth / 2, innerHeight * .4, 180), reduce ? 0 : 900);
+        setTimeout(() => { intro.classList.add("gone"); document.body.style.overflow = ""; }, reduce ? 200 : 1700);
+        setTimeout(() => { intro.remove(); }, reduce ? 1200 : 2700);
+      });
+    })();
+
     $("#toggle").addEventListener("click", () => { music.on ? music.stop() : music.start(); render(); });
     $("#start").addEventListener("click", (ev) => {
       const r = ev.currentTarget.getBoundingClientRect();
