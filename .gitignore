@@ -1,0 +1,10 @@
+# Photos originales : jamais en ligne (taille + métadonnées GPS)
+photos/photo*.jpg
+photos/*.jpeg
+photos/*.png
+photos/*.heic
+# Ancien dossier de déploiement Netlify
+site/
+# Vocaux WhatsApp bruts (seuls les .mp3 convertis sont publiés)
+audio/*.opus
+audio/*.ogg

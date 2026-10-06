@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <meta property="og:title" content="Joyeux anniversaire, Papa">
+  <meta property="og:description" content="Une surprise de ta famille, avec tout notre amour.">
+  <meta property="og:type" content="website">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0
+    }
+
+    img {
+      max-width: 100%
+    }
+
+    [hidden] {
+      display: none !important
+    }
+
+    :root {
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px)
+    }
+  </style>
+  <title>Joyeux anniversaire Papa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;500;600&family=Caveat:wght@500;600&display=swap">
+  <style>
+    /* Layout: une lettre de famille en colonne unique, bandeau wax en tête, cartes de messages, polaroïds de Blois, lecteur musical flottant */
+    :root {
+      --bg: #f5f2ec;
+      --paper: #fffdf8;
+      --ink: #1c2340;
+      --muted: #5d6380;
+      --indigo: #23306b;
+      --gold: #d9951a;
+      --leaf: #2d7a4e;
+      --red: #c0392b;
+      --line: #e3ddd0;
+      --shadow: 0 10px 30px rgba(28, 35, 64, .10);
+      --display: "Gloock", Georgia, "Times New Roman", serif;
+      --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --hand: "Caveat", "Segoe Print", cursive;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #121735;
+        --paper: #1b2148;
+        --ink: #f3efe6;
+        --muted: #aab0cc;
+        --indigo: #9fb0ff;
+        --gold: #f0b23a;
+        --leaf: #5fc28a;
+        --red: #ef6b5c;
+        --line: #2c3466;
+        --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+        color-scheme: dark
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #121735;
+      --paper: #1b2148;
+      --ink: #f3efe6;
+      --muted: #aab0cc;
+      --indigo: #9fb0ff;
+      --gold: #f0b23a;
+      --leaf: #5fc28a;
+      --red: #ef6b5c;
+      --line: #2c3466;
+      --shadow: 0 10px 30px rgba(0, 0, 0, .35);
+      color-scheme: dark
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.6
+    }
+
+    .wrap {
+      max-width: 680px;
+      margin: 0 auto;
+      padding-inline: 18px;
+      padding-block: 0 120px
+    }
+
+    .wax {
+      height: 22px;
+      background:
+        radial-gradient(circle at 11px 11px, var(--gold) 0 5px, transparent 6px) 0 0/22px 22px,
+        linear-gradient(90deg, var(--leaf) 0 33%, var(--gold) 33% 66%, var(--red) 66%);
+      opacity: .95
+    }
+
+    header.hero {
+      padding-block: 44px 28px;
+      display: grid;
+      gap: 14px
+    }
+
+    .eyebrow {
+      font-size: .8rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600
+    }
+
+    h1 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(2.6rem, 11vw, 4.4rem);
+      line-height: 1.02;
+      margin: 0;
+      text-wrap: balance
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--gold)
+    }
+
+    .lead {
+      color: var(--muted);
+      margin: 0;
+      max-width: 34em
+    }
+
+    .date {
+      font-family: var(--hand);
+      font-size: 1.6rem;
+      color: var(--indigo)
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      justify-self: start;
+      border: 0;
+      cursor: pointer;
+      background: var(--indigo);
+      color: var(--paper);
+      font: 600 1rem var(--body);
+      padding: 14px 22px;
+      border-radius: 999px
+    }
+
+    .btn:focus-visible,
+    .mini:focus-visible,
+    a:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 3px
+    }
+
+    .btn svg {
+      width: 18px;
+      height: 18px
+    }
+
+    h2 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 1.9rem;
+      margin: 0
+    }
+
+    section {
+      display: grid;
+      gap: 18px;
+      padding-block: 30px
+    }
+
+    .letter {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 26px 22px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 14px
+    }
+
+    .letter p {
+      margin: 0
+    }
+
+    .sign {
+      font-family: var(--hand);
+      font-size: 1.9rem;
+      color: var(--indigo);
+      line-height: 1
+    }
+
+    .cards {
+      display: grid;
+      gap: 16px
+    }
+
+    .card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 20px;
+      display: grid;
+      gap: 10px;
+      min-width: 0
+    }
+
+    .card .who {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: var(--display);
+      font-size: 1.2rem;
+      color: var(--paper);
+      flex: none
+    }
+
+    .who b {
+      font-weight: 600
+    }
+
+    .who span {
+      display: block;
+      font-size: .85rem;
+      color: var(--muted)
+    }
+
+    .card p {
+      margin: 0
+    }
+
+    .card audio {
+      width: 100%
+    }
+
+    .voice-tag {
+      font-size: .8rem;
+      color: var(--leaf);
+      font-weight: 600;
+      letter-spacing: .04em
+    }
+
+    .photos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 18px
+    }
+
+    .polaroid {
+      background: #fff;
+      padding: 10px 10px 14px;
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 8px;
+      margin: 0
+    }
+
+    .polaroid:nth-child(odd) {
+      transform: rotate(-1.6deg)
+    }
+
+    .polaroid:nth-child(even) {
+      transform: rotate(1.4deg)
+    }
+
+    .polaroid .ph {
+      aspect-ratio: 4/5;
+      max-width: 100%;
+      background:
+        repeating-linear-gradient(45deg, #ece6da 0 10px, #e4ddcf 10px 20px);
+      display: grid;
+      place-items: center;
+      color: #8a8270;
+      font-size: .85rem;
+      text-align: center;
+      padding: 10px
+    }
+
+    .polaroid img {
+      aspect-ratio: 3/4;
+      width: 100%;
+      object-fit: cover;
+      display: block
+    }
+
+    .polaroid.wide {
+      grid-column: 1 / -1
+    }
+
+    .polaroid.wide img,
+    .polaroid.wide .ph {
+      aspect-ratio: 4/3
+    }
+
+    .polaroid figcaption {
+      font-family: var(--hand);
+      font-size: 1.3rem;
+      color: #2b2f45;
+      text-align: center
+    }
+
+    .song {
+      display: grid;
+      gap: 8px;
+      background: var(--paper);
+      border: 1px dashed var(--gold);
+      border-radius: 6px;
+      padding: 18px 20px
+    }
+
+    .song a {
+      color: var(--indigo);
+      font-weight: 600
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: .9rem;
+      padding-block: 30px
+    }
+
+    footer .big {
+      font-family: var(--display);
+      font-size: 2rem;
+      color: var(--ink);
+      display: block
+    }
+
+    .player {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--ink);
+      color: var(--bg);
+      padding: 8px 8px 8px 16px;
+      border-radius: 999px;
+      box-shadow: var(--shadow);
+      font-size: .9rem;
+      max-width: calc(100% - 32px)
+    }
+
+    .mini {
+      border: 0;
+      cursor: pointer;
+      background: var(--gold);
+      color: #1c2340;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex: none
+    }
+
+    .mini svg {
+      width: 16px;
+      height: 16px
+    }
+
+    .bars {
+      display: flex;
+      gap: 3px;
+      align-items: end;
+      height: 16px
+    }
+
+    .bars i {
+      width: 3px;
+      background: var(--gold);
+      height: 4px;
+      border-radius: 2px
+    }
+
+    .playing .bars i {
+      animation: b .9s ease-in-out infinite
+    }
+
+    .playing .bars i:nth-child(2) {
+      animation-delay: .15s
+    }
+
+    .playing .bars i:nth-child(3) {
+      animation-delay: .3s
+    }
+
+    .playing .bars i:nth-child(4) {
+      animation-delay: .45s
+    }
+
+    @keyframes b {
+      50% {
+        height: 16px
+      }
+    }
+
+    @keyframes rise {
+      from {
+        transform: translateY(10px)
+      }
+
+      to {
+        transform: none
+      }
+    }
+
+    header.hero>* {
+      animation: rise .7s ease-out both
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      * {
+        animation: none !important
+      }
+    }
+  
+    /* ====== Animations ====== */
+    .wax { background-size: 22px 22px, 100% 100%; animation: wax 6s linear infinite }
+    @keyframes wax { to { background-position: 22px 0, 0 0 } }
+
+    h1 em { display: inline-block; animation: pop .9s cubic-bezier(.2, 1.6, .4, 1) .5s both, glow 3.5s ease-in-out 1.6s infinite }
+    @keyframes pop { from { transform: scale(.3) rotate(-8deg); opacity: 0 } to { transform: none; opacity: 1 } }
+    @keyframes glow { 50% { text-shadow: 0 0 18px rgba(217, 149, 26, .55) } }
+
+    .btn { transition: transform .2s ease, box-shadow .2s ease }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow) }
+    .btn.pulse { animation: pulse 2.2s ease-in-out 2s infinite }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(217, 149, 26, .55) } 50% { box-shadow: 0 0 0 12px rgba(217, 149, 26, 0) } }
+
+    .js-reveal .reveal { opacity: 0; translate: 0 26px; transition: opacity .8s ease, translate .8s cubic-bezier(.2, .8, .2, 1) }
+    .js-reveal .reveal.in { opacity: 1; translate: 0 0 }
+
+    .polaroid { transition: transform .35s ease, box-shadow .35s ease }
+    .polaroid:hover, .polaroid:active { transform: rotate(0) scale(1.03); box-shadow: 0 18px 40px rgba(28, 35, 64, .22) }
+
+    footer .big { animation: beat 1.8s ease-in-out infinite }
+    @keyframes beat { 0%, 100% { transform: scale(1) } 15% { transform: scale(1.06) } 30% { transform: scale(1) } 45% { transform: scale(1.04) } }
+
+    #confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50 }
+
+    @media (prefers-reduced-motion: reduce) {
+      .js-reveal .reveal { opacity: 1; translate: none; transition: none }
+      .polaroid { transition: none }
+    }
+</style>
+</head>
+
+<body>
+
+
+  <div class="wax" aria-hidden="true"></div>
+  <div class="wrap">
+    <header class="hero">
+      <span class="eyebrow">De la France au Bénin, avec tout notre amour</span>
+      <h1>Joyeux anniversaire, <em>Papa</em></h1>
+      <span class="date" id="date"></span>
+      <p class="lead">Ta femme et tes enfants ont réuni ici quelques mots pour toi. Appuie sur le bouton pour
+        lancer la musique, puis descends tranquillement.</p>
+      <button class="btn pulse" id="start" type="button">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+        Lancer la musique
+      </button>
+    </header>
+
+    <section aria-labelledby="t-morino">
+      <h2 id="t-morino">Le mot de ton fils</h2>
+      <article class="letter" id="letter"></article>
+    </section>
+
+    <section aria-labelledby="t-famille">
+      <h2 id="t-famille">Ta famille te dit</h2>
+      <div class="cards" id="cards"></div>
+    </section>
+
+    <section aria-labelledby="t-blois">
+      <h2 id="t-blois">Souvenirs de Blois</h2>
+      <div class="photos" id="photos"></div>
+    </section>
+
+    <section aria-labelledby="t-song">
+      <h2 id="t-song">Tes chansons du jour</h2>
+      <div class="song">
+        <span>Un anniversaire sans P-Square, ce n'est pas un vrai anniversaire. Mets le son fort !</span>
+        <a href="https://www.youtube.com/results?search_query=P-Square+No+One+Like+You+official+video" target="_blank"
+          rel="noopener">▶ P-Square, « No One Like You »</a>
+        <a href="https://www.youtube.com/results?search_query=P-Square+Bring+It+On+official+video" target="_blank"
+          rel="noopener">▶ P-Square, « Bring It On »</a>
+      </div>
+    </section>
+
+    <footer>
+      <span class="big">Bonne fête, Papa</span>
+      Ta famille, qui pense fort à toi aujourd'hui.
+    </footer>
+  </div>
+
+  <canvas id="confetti" aria-hidden="true"></canvas>
+  <div class="player" id="player" role="group" aria-label="Musique de fond">
+    <div class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <span id="ptxt">Musique en pause</span>
+    <button class="mini" id="toggle" type="button" aria-label="Lancer la musique">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    /* ====== CONTENU A MODIFIER ======
+       audio: chemin d'une note vocale publiée avec la page (ex: "audio/maman.mp3"), ou "" si aucune */
+    const LETTRE = [
+      "Papa,",
+      "Aujourd'hui, c'est ton jour, et même à des milliers de kilomètres, je tenais à être là d'une manière ou d'une autre. Alors je t'ai fait cette petite page, avec mes mains d'informaticien et tout mon cœur de fils.",
+      "Tout ce que je construis ici en France, mes études, mes projets, la personne que je deviens, repose sur ce que tu m'as appris : le travail, la patience, le respect des autres et la foi dans l'avenir. Chaque pas que je fais porte un peu de toi.",
+      "Ta visite à Blois reste l'un de mes plus beaux souvenirs. Te voir marcher dans ma ville, découvrir ma vie d'ici, ça m'a rendu tellement fier.",
+      "Je te souhaite une année pleine de santé, de joie et de sérénité. Merci d'être le père que tu es. Je t'aime, Papa."
+    ];
+    const SIGNATURE = "Morino";
+
+    const FAMILLE = [
+      {
+        nom: "Maman", role: "Ta femme", couleur: "var(--red)", audio: "",
+        texte: "Mon chéri, joyeux anniversaire. Merci pour toutes ces années à mes côtés, pour ta force et ta tendresse. Que Dieu te garde en bonne santé et te donne encore de longues années de bonheur avec nous."
+      },
+      {
+        nom: "Imelda", role: "Ta fille", couleur: "var(--leaf)", audio: "",
+        texte: "Joyeux anniversaire Papa ! Tu es mon modèle et ma fierté. Merci pour tes conseils, ta patience et ton amour. Je te souhaite une magnifique journée."
+      },
+      {
+        nom: "Hilary", role: "Ta fille", couleur: "var(--gold)", audio: "",
+        texte: "Bonne fête à l'homme le plus solide que je connaisse. Que cette nouvelle année t'apporte la paix et tout ce que ton cœur désire. Je t'aime fort, Papa."
+      }
+    ];
+
+    /* src: chemin de la photo à côté du fichier, ex: "photos/blois1.jpg" (laisser "" pour un cadre vide) */
+    const PHOTOS = [
+      { src: "photos/blois-4.jpg", legende: "Toi et moi, au bord de la Loire", large: true },
+      { src: "photos/blois-2.jpg", legende: "Au château royal de Blois" },
+      { src: "photos/blois-3.jpg", legende: "Le roi Papa sur son trône" },
+      { src: "photos/blois-1.jpg", legende: "Face aux dragons de la Maison de la Magie" },
+      { src: "", legende: "Avec Elior, ton dernier fils", large: true }
+    ];
+    /* ====== FIN DU CONTENU ====== */
+
+    const $ = s => document.querySelector(s);
+    const el = (t, cls, txt) => { const e = document.createElement(t); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+
+    $("#date").textContent = new Date().toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+
+    const letter = $("#letter");
+    LETTRE.forEach(p => letter.append(el("p", null, p)));
+    letter.append(el("div", "sign", SIGNATURE));
+
+    const cards = $("#cards");
+    FAMILLE.forEach(m => {
+      const c = el("article", "card");
+      const who = el("div", "who");
+      const av = el("div", "avatar", m.nom.trim()[0]); av.style.background = m.couleur;
+      const id = el("div"); id.append(el("b", null, m.nom), el("span", null, m.role));
+      who.append(av, id); c.append(who);
+      if (m.audio) {
+        c.append(el("span", "voice-tag", "NOTE VOCALE"));
+        const a = document.createElement("audio"); a.controls = true; a.preload = "none"; a.src = m.audio;
+        a.addEventListener("play", () => music.duck(true));
+        a.addEventListener("pause", () => music.duck(false));
+        a.addEventListener("ended", () => music.duck(false));
+        c.append(a);
+      }
+      if (m.texte) c.append(el("p", null, m.texte));
+      cards.append(c);
+    });
+
+    const photos = $("#photos");
+    PHOTOS.filter(p => p.src).forEach(p => {
+      const f = el("figure", p.large ? "polaroid wide" : "polaroid");
+      if (p.src) { const i = new Image(); i.src = p.src; i.alt = p.legende; i.loading = "lazy"; f.append(i); }
+      else f.append(el("div", "ph", "Photo à ajouter"));
+      f.append(el("figcaption", null, p.legende));
+      photos.append(f);
+    });
+
+    /* ====== Musique de fond originale (Web Audio), style highlife doux ====== */
+    const music = (() => {
+      let ctx, master, timer, step = 0, next = 0, on = false;
+      const BPM = 108, S = 60 / BPM / 4;
+      const hz = n => 440 * Math.pow(2, (n - 69) / 12);
+      // G - C - D - G, une mesure chacun
+      const CH = [[55, 59, 62, 67], [60, 64, 67, 72], [62, 66, 69, 74], [55, 59, 62, 67]];
+      const BASS = [43, 48, 50, 43];
+      const MEL = [74, null, 71, null, 74, 76, null, 74, 72, null, 71, null, 69, null, 67, null, 69, null, 71, 72, null, 74, null, 72, 71, null, 67, null, null, null, null, null];
+      let noise;
+      function init() {
+        ctx = new (window.AudioContext || window.webkitAudioContext)();
+        master = ctx.createGain(); master.gain.value = 0.0; master.connect(ctx.destination);
+        const len = ctx.sampleRate * 0.1; noise = ctx.createBuffer(1, len, ctx.sampleRate);
+        const d = noise.getChannelData(0); for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+      }
+      function tone(n, t, dur, vol, type) {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = type; o.frequency.value = hz(n);
+        g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.01);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+        o.connect(g); g.connect(master); o.start(t); o.stop(t + dur + 0.05);
+      }
+      function shaker(t, vol) {
+        const s = ctx.createBufferSource(); s.buffer = noise;
+        const f = ctx.createBiquadFilter(); f.type = "highpass"; f.frequency.value = 6000;
+        const g = ctx.createGain(); g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05);
+        s.connect(f); f.connect(g); g.connect(master); s.start(t); s.stop(t + 0.06);
+      }
+      function play(i, t) {
+        const bar = Math.floor(i / 16) % 4, s = i % 16, ch = CH[bar];
+        shaker(t, s % 4 === 2 ? 0.12 : 0.05);
+        if (s === 0 || s === 6 || s === 10) tone(BASS[bar] + (s === 10 ? 7 : 0), t, 0.35, 0.35, "sine");
+        if (s % 2 === 0) tone(ch[(s / 2) % 4] + 12, t, 0.25, 0.07, "triangle"); // guitare highlife en arpège
+        if ([2, 6, 10, 14].includes(s)) ch.slice(1).forEach(n => tone(n, t, 0.12, 0.03, "square"));
+        const m = MEL[(Math.floor(i / 2)) % 32];
+        if (s % 2 === 0 && m) tone(m, t, 0.45, 0.09, "sine"); // marimba
+      }
+      function loop() {
+        while (next < ctx.currentTime + 0.2) { play(step, next); next += S; step++; }
+      }
+      return {
+        get on() { return on; },
+        start() {
+          if (!ctx) init();
+          ctx.resume(); on = true; next = ctx.currentTime + 0.05;
+          master.gain.cancelScheduledValues(ctx.currentTime);
+          master.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 1.5);
+          clearInterval(timer); timer = setInterval(loop, 50);
+        },
+        stop() {
+          if (!ctx) return; on = false;
+          master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.4);
+          clearInterval(timer); setTimeout(() => { if (!on) ctx.suspend(); }, 500);
+        },
+        duck(down) { if (ctx && on) master.gain.linearRampToValueAtTime(down ? 0.06 : 0.5, ctx.currentTime + 0.4); }
+      };
+    })();
+
+    const ICON_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>';
+    const ICON_PAUSE = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
+    function render() {
+      $("#player").classList.toggle("playing", music.on);
+      $("#ptxt").textContent = music.on ? "Musique en cours" : "Musique en pause";
+      $("#toggle").innerHTML = music.on ? ICON_PAUSE : ICON_PLAY;
+      $("#toggle").setAttribute("aria-label", music.on ? "Mettre la musique en pause" : "Lancer la musique");
+    }
+
+    /* ====== Animations au défilement ====== */
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if ("IntersectionObserver" in window && !reduce) {
+      document.documentElement.classList.add("js-reveal");
+      const items = document.querySelectorAll("section h2, .letter, .card, .polaroid, .song, footer");
+      items.forEach(e => {
+        e.classList.add("reveal");
+        const sibs = [...e.parentNode.children].filter(c => c.matches(".card, .polaroid"));
+        const k = sibs.indexOf(e);
+        if (k > 0) e.style.transitionDelay = (k * 0.12) + "s";
+      });
+      const io = new IntersectionObserver(es => es.forEach(en => {
+        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+      }), { threshold: 0.12 });
+      items.forEach(e => io.observe(e));
+      setTimeout(() => items.forEach(e => e.classList.add("in")), 8000); // filet de sécurité
+    }
+
+    /* ====== Confettis aux couleurs du Bénin ====== */
+    const confetti = (() => {
+      const cv = $("#confetti"), cx = cv.getContext("2d");
+      const COLS = ["#2d7a4e", "#f2c200", "#d6342a", "#d9951a", "#ffffff"];
+      let parts = [], raf = 0;
+      function size() { cv.width = innerWidth * devicePixelRatio; cv.height = innerHeight * devicePixelRatio; }
+      function frame() {
+        cx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+        cx.clearRect(0, 0, innerWidth, innerHeight);
+        parts = parts.filter(p => p.y < innerHeight + 30);
+        parts.forEach(p => {
+          p.vy += 0.12; p.vx *= 0.99; p.x += p.vx + Math.sin(p.t += 0.08) * 0.6; p.y += p.vy; p.r += p.vr;
+          cx.save(); cx.translate(p.x, p.y); cx.rotate(p.r); cx.fillStyle = p.c;
+          cx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h * Math.abs(Math.cos(p.t))); cx.restore();
+        });
+        raf = parts.length ? requestAnimationFrame(frame) : 0;
+      }
+      return (x = innerWidth / 2, y = innerHeight / 3, n = 150) => {
+        if (reduce) return;
+        size();
+        for (let i = 0; i < n; i++) {
+          const a = Math.random() * Math.PI * 2, v = 4 + Math.random() * 7;
+          parts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 5, r: Math.random() * 6, vr: (Math.random() - .5) * .3,
+            w: 6 + Math.random() * 6, h: 8 + Math.random() * 8, c: COLS[i % COLS.length], t: Math.random() * 6 });
+        }
+        if (!raf) raf = requestAnimationFrame(frame);
+      };
+    })();
+
+    // Une pluie de confettis aussi en arrivant en bas de la page
+    if ("IntersectionObserver" in window) {
+      let done = false;
+      new IntersectionObserver(es => {
+        if (es[0].isIntersecting && !done) { done = true; confetti(innerWidth / 2, innerHeight * .6, 180); }
+      }, { threshold: 0.6 }).observe(document.querySelector("footer"));
+    }
+    $("#toggle").addEventListener("click", () => { music.on ? music.stop() : music.start(); render(); });
+    $("#start").addEventListener("click", (ev) => {
+      const r = ev.currentTarget.getBoundingClientRect();
+      confetti(r.left + r.width / 2, r.top + r.height / 2);
+      ev.currentTarget.classList.remove("pulse");
+      if (!music.on) music.start(); render();
+      $("#t-morino").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  </script>
+
+</body>
+
+</html>
