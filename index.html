@@ -33,6 +33,10 @@
     }
   </style>
   <title>Joyeux anniversaire Papa</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="theme-color" content="#23306b">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@400;500;600&family=Caveat:wght@500;600&display=swap">
@@ -791,62 +795,80 @@
       photos.append(f);
     });
 
-    /* ====== Musique de fond originale (Web Audio), style highlife doux ====== */
+    /* ====== Musique de fond : « Joyeux anniversaire » (mélodie du domaine public), jouée en Web Audio ====== */
     const music = (() => {
-      let ctx, master, timer, step = 0, next = 0, on = false;
-      const BPM = 108, S = 60 / BPM / 4;
+      let ctx, master, noise, timer, on = false, t0 = 0, idx = 0, loopN = 0;
+      const BPM = 92, B = 60 / BPM;
       const hz = n => 440 * Math.pow(2, (n - 69) / 12);
-      // G - C - D - G, une mesure chacun
-      const CH = [[55, 59, 62, 67], [60, 64, 67, 72], [62, 66, 69, 74], [55, 59, 62, 67]];
-      const BASS = [43, 48, 50, 43];
-      const MEL = [74, null, 71, null, 74, 76, null, 74, 72, null, 71, null, 69, null, 67, null, 69, null, 71, 72, null, 74, null, 72, 71, null, 67, null, null, null, null, null];
-      let noise;
+      // mélodie en sol majeur : [note MIDI, durée en temps]
+      const MEL = [[62, .75], [62, .25], [64, 1], [62, 1], [67, 1], [66, 2],
+                   [62, .75], [62, .25], [64, 1], [62, 1], [69, 1], [67, 2],
+                   [62, .75], [62, .25], [74, 1], [71, 1], [67, 1], [66, 1], [64, 1],
+                   [72, .75], [72, .25], [71, 1], [67, 1], [69, 1], [67, 3]];
+      const G = [43, [59, 62, 67]], D = [50, [57, 62, 66]], C = [48, [60, 64, 67]];
+      const HARM = [G, D, D, G, G, C, G, G];          // une harmonie par mesure à 3 temps
+      const LEN = 1 + HARM.length * 3 + 3;           // levée + 8 mesures + 1 mesure de respiration
+      const EV = [];
+      let b = 0;
+      MEL.forEach(([n, d]) => { EV.push({ t: b, k: "m", n, d }); b += d; });
+      HARM.forEach(([root, ch], i) => {
+        const s = 1 + i * 3;
+        EV.push({ t: s, k: "b", n: root }, { t: s + 1, k: "c", ch }, { t: s + 2, k: "c", ch });
+      });
+      for (let x = 0; x < LEN; x += .5) EV.push({ t: x, k: "s", acc: x % 1 === 0 });
+      EV.sort((a, c) => a.t - c.t);
+
       function init() {
         ctx = new (window.AudioContext || window.webkitAudioContext)();
-        master = ctx.createGain(); master.gain.value = 0.0; master.connect(ctx.destination);
-        const len = ctx.sampleRate * 0.1; noise = ctx.createBuffer(1, len, ctx.sampleRate);
+        master = ctx.createGain(); master.gain.value = 0; master.connect(ctx.destination);
+        const len = ctx.sampleRate * .1; noise = ctx.createBuffer(1, len, ctx.sampleRate);
         const d = noise.getChannelData(0); for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
       }
       function tone(n, t, dur, vol, type) {
         const o = ctx.createOscillator(), g = ctx.createGain();
         o.type = type; o.frequency.value = hz(n);
-        g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.01);
-        g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-        o.connect(g); g.connect(master); o.start(t); o.stop(t + dur + 0.05);
+        g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + .015);
+        g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+        o.connect(g); g.connect(master); o.start(t); o.stop(t + dur + .05);
       }
       function shaker(t, vol) {
         const s = ctx.createBufferSource(); s.buffer = noise;
-        const f = ctx.createBiquadFilter(); f.type = "highpass"; f.frequency.value = 6000;
-        const g = ctx.createGain(); g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05);
-        s.connect(f); f.connect(g); g.connect(master); s.start(t); s.stop(t + 0.06);
+        const f = ctx.createBiquadFilter(); f.type = "highpass"; f.frequency.value = 6500;
+        const g = ctx.createGain(); g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(.0001, t + .05);
+        s.connect(f); f.connect(g); g.connect(master); s.start(t); s.stop(t + .06);
       }
-      function play(i, t) {
-        const bar = Math.floor(i / 16) % 4, s = i % 16, ch = CH[bar];
-        shaker(t, s % 4 === 2 ? 0.12 : 0.05);
-        if (s === 0 || s === 6 || s === 10) tone(BASS[bar] + (s === 10 ? 7 : 0), t, 0.35, 0.35, "sine");
-        if (s % 2 === 0) tone(ch[(s / 2) % 4] + 12, t, 0.25, 0.07, "triangle"); // guitare highlife en arpège
-        if ([2, 6, 10, 14].includes(s)) ch.slice(1).forEach(n => tone(n, t, 0.12, 0.03, "square"));
-        const m = MEL[(Math.floor(i / 2)) % 32];
-        if (s % 2 === 0 && m) tone(m, t, 0.45, 0.09, "sine"); // marimba
+      function play(ev, t) {
+        if (ev.k === "m") {                                   // mélodie : façon boîte à musique / marimba
+          tone(ev.n, t, ev.d * B * .9 + .35, .16, "sine");
+          tone(ev.n + 12, t, .35, .03, "triangle");
+        } else if (ev.k === "b") tone(ev.n, t, B * 1.2, .3, "sine");
+        else if (ev.k === "c") ev.ch.forEach(n => tone(n, t, .28, .03, "triangle"));
+        else shaker(t, ev.acc ? .07 : .035);
       }
       function loop() {
-        while (next < ctx.currentTime + 0.2) { play(step, next); next += S; step++; }
+        for (;;) {
+          const ev = EV[idx], when = t0 + (loopN * LEN + ev.t) * B;
+          if (when > ctx.currentTime + .25) break;
+          if (when > ctx.currentTime - .05) play(ev, Math.max(when, ctx.currentTime));
+          if (++idx >= EV.length) { idx = 0; loopN++; }
+        }
       }
       return {
         get on() { return on; },
         start() {
           if (!ctx) init();
-          ctx.resume(); on = true; next = ctx.currentTime + 0.05;
+          ctx.resume(); on = true;
+          t0 = ctx.currentTime + .1; idx = 0; loopN = 0;
           master.gain.cancelScheduledValues(ctx.currentTime);
-          master.gain.linearRampToValueAtTime(0.5, ctx.currentTime + 1.5);
+          master.gain.linearRampToValueAtTime(.5, ctx.currentTime + 1);
           clearInterval(timer); timer = setInterval(loop, 50);
         },
         stop() {
           if (!ctx) return; on = false;
-          master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.4);
+          master.gain.linearRampToValueAtTime(0, ctx.currentTime + .4);
           clearInterval(timer); setTimeout(() => { if (!on) ctx.suspend(); }, 500);
         },
-        duck(down) { if (ctx && on) master.gain.linearRampToValueAtTime(down ? 0.06 : 0.5, ctx.currentTime + 0.4); }
+        duck(down) { if (ctx && on) master.gain.linearRampToValueAtTime(down ? .06 : .5, ctx.currentTime + .4); }
       };
     })();
 
